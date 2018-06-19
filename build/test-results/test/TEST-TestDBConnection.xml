@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="TestDBConnection" tests="2" skipped="0" failures="0" errors="0" timestamp="2018-06-09T18:23:24" hostname="Matens-MacBook-Pro.local" time="0.168">
+  <properties/>
+  <testcase name="checkInsert()" classname="TestDBConnection" time="0.015"/>
+  <testcase name="checkConnectionForMysqlDB()" classname="TestDBConnection" time="0.151"/>
+  <system-out><![CDATA[Task@3dcdf682
+]]></system-out>
+  <system-err><![CDATA[com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+]]></system-err>
+</testsuite>
