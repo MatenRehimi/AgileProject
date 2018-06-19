@@ -12,11 +12,13 @@ public class ProjectListController extends MouseAdapter implements ActionListene
   private MainController mainController;
   private LoginPanel loginPanel;
   private ProjectListPanel projectListPanel;
+  private Project currentProject;
 
   public ProjectListController(MainController mainController, LoginPanel loginPanel, ProjectListPanel projectListPanel) {
     this.mainController = mainController;
     this.loginPanel = loginPanel;
     this.projectListPanel = projectListPanel;
+    currentProject = null;
   }
 
   public void actionPerformed(ActionEvent e)  {
@@ -29,16 +31,19 @@ public class ProjectListController extends MouseAdapter implements ActionListene
     if (name.equals("createProjectButton")) {
       mainController.getCardLayout().show(mainController.getMainPanel(),"createProjectPanel");
       projectListPanel.clearModel();
-
+    }
+    if (name.equals("viewProjectButton")) {
+      //go to task page
     }
 
   }
 
     public void mouseClicked(MouseEvent e) {
 
+      JList projectList = (JList) e.getSource();
+      int index = projectList.locationToIndex(e.getPoint());
+
        if (e.getClickCount() == 2) {
-         JList projectList = (JList) e.getSource();
-         int index = projectList.locationToIndex(e.getPoint());
           if (index >= 0) {
             Object project = projectList.getModel().getElementAt(index);
             ((DefaultListModel) projectList.getModel()).removeElementAt(index);
@@ -49,7 +54,13 @@ public class ProjectListController extends MouseAdapter implements ActionListene
             }
           }
 
+       }
 
+       if (e.getClickCount() == 1) {
+          if (index >= 0) {
+            Object project = projectList.getModel().getElementAt(index);
+            System.out.println(((Project)project));
+          }
        }
     }
 

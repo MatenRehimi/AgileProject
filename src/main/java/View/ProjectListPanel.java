@@ -14,8 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.util.ArrayList;
 
-
-
 public class ProjectListPanel extends JPanel {
 
   private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 20);
@@ -25,8 +23,10 @@ public class ProjectListPanel extends JPanel {
   private JTabbedPane tabbedPane;
   private JButton logOutButton;
   private JButton createProjectButton;
+  private JButton viewProjectButton;
   private JPanel bottomPanel;
   private int projectSize;
+  private DefaultListCellRenderer renderer;
 
 
   public ProjectListPanel(MainPanel mainPanel) {
@@ -37,7 +37,7 @@ public class ProjectListPanel extends JPanel {
     list = new JList<>(model);
     tabbedPane = new JTabbedPane();
     tabbedPane.addTab("Project List", list);
-    DefaultListCellRenderer renderer = (DefaultListCellRenderer) list.getCellRenderer();
+    renderer = (DefaultListCellRenderer) list.getCellRenderer();
     renderer.setHorizontalAlignment(SwingConstants.CENTER);
     list.setFixedCellHeight(50);
     list.setFont(MONACO_FONT);
@@ -56,6 +56,9 @@ public class ProjectListPanel extends JPanel {
     createProjectButton = new JButton("Create Project");
     createProjectButton.setName("createProjectButton");
     bottomPanel.add(createProjectButton);
+    viewProjectButton = new JButton("View Project");
+    viewProjectButton.setName("viewProjectButton");
+    bottomPanel.add(viewProjectButton);
     return bottomPanel;
   }
 
@@ -70,6 +73,7 @@ public class ProjectListPanel extends JPanel {
   public void addActionListeners(ActionListener actionListener) {
     logOutButton.addActionListener(actionListener);
     createProjectButton.addActionListener(actionListener);
+    viewProjectButton.addActionListener(actionListener);
     list.addMouseListener(((MouseAdapter)actionListener));
   }
 
