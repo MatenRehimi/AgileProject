@@ -11,6 +11,7 @@ public class MainPanel extends JPanel{
   private LoginPanel loginPanel;
   private ProjectListPanel projectListPanel;
   private CreateProjectPanel createProjectPanel;
+  private TaskListPanel taskListPanel;
 
   private CardLayout cards;
   private JFrame frame;
@@ -20,6 +21,7 @@ public class MainPanel extends JPanel{
     loginPanel = new LoginPanel(this);
     projectListPanel = new ProjectListPanel(this);
     createProjectPanel = new CreateProjectPanel(this);
+    taskListPanel = new TaskListPanel(this);
 
     frame = new JFrame("Agile Project");
     frame.setSize(800,550);
@@ -33,11 +35,13 @@ public class MainPanel extends JPanel{
     add(loginPanel,"loginPanel");
     add(projectListPanel,"projectListPanel");
     add(createProjectPanel,"createProjectPanel");
+    add(taskListPanel,"taskListPanel");
 
     mainController = new MainController(this);
     loginPanel.addActionListeners(mainController.getLoginController());
     projectListPanel.addActionListeners(mainController.getProjectListController());
     createProjectPanel.addActionListener(mainController.getCreateProjectController());
+    taskListPanel.addActionListeners(mainController.getTaskListController());
 
   }
 
@@ -55,6 +59,10 @@ public class MainPanel extends JPanel{
 
   public CreateProjectPanel getCreateProjectPanel() {
     return createProjectPanel;
+  }
+
+  public TaskListPanel getTaskListPanel() {
+    return taskListPanel;
   }
 
 }

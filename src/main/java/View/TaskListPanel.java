@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -13,14 +15,14 @@ import java.util.ArrayList;
 
 public class TaskListPanel extends JPanel {
 
-  private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 20);
+  private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 15);
   private MainPanel mainPanel;
   private DefaultListModel<Object> model;
   private JList<Object> list;
   private JTabbedPane tabbedPane;
   private DefaultListCellRenderer renderer;
   private JPanel southPanel;
-  private JButton back;
+  private JButton projectListButton;
   private JButton createTaskButton;
   private JButton deleteTaskButton;
   private int taskSize;
@@ -32,8 +34,8 @@ public class TaskListPanel extends JPanel {
     list = new JList<>(model);
     tabbedPane = new JTabbedPane();
     tabbedPane.addTab("Task List", list);
-    renderer = (DefaultListCellRenderer) list.getCellRenderer();
-    renderer.setHorizontalAlignment(SwingConstants.CENTER);
+    // renderer = (DefaultListCellRenderer) list.getCellRenderer();
+    // renderer.setHorizontalAlignment(SwingConstants.CENTER);
     list.setFixedCellHeight(50);
     list.setFont(MONACO_FONT);
     add(tabbedPane, BorderLayout.NORTH);
@@ -44,9 +46,9 @@ public class TaskListPanel extends JPanel {
     southPanel = new JPanel();
     southPanel.setLayout(new FlowLayout());
     add(southPanel, BorderLayout.SOUTH);
-    back = new JButton("Back");
-    back.setName("back");
-    southPanel.add(back);
+    projectListButton = new JButton("Project List");
+    projectListButton.setName("projectListButton");
+    southPanel.add(projectListButton);
     createTaskButton = new JButton("Create Task");
     createTaskButton.setName("createTaskButton");
     southPanel.add(createTaskButton);
@@ -58,10 +60,32 @@ public class TaskListPanel extends JPanel {
 
   public void addTasks(ArrayList<Task> tasks) {
     for (int i=0; i < tasks.size(); i++) {
-      //System.out.println(projects.get(i));
       model.addElement(tasks.get(i));
     }
     taskSize = tasks.size();
+  }
+
+  public void clearModel() {
+    model.clear();
+  }
+
+  public void addActionListeners(ActionListener actionListener) {
+    projectListButton.addActionListener(actionListener);
+    createTaskButton.addActionListener(actionListener);
+    deleteTaskButton.addActionListener(actionListener);
+    list.addMouseListener(((MouseAdapter)actionListener));
+  }
+
+  public ArrayList<Object> getTasks() {
+    ArrayList<Object> tasks = new ArrayList<Object>();
+    for(int i = 0; i< model.getSize();i++){
+      tasks.add(model.getElementAt(i));
+    }
+    return tasks;
+  }
+
+  public int getModelSize() {
+    return model.getSize();
   }
 
 }

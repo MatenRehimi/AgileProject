@@ -11,14 +11,16 @@ public class MainController implements ActionListener {
   private LoginController loginController;
   private ProjectListController projectListController;
   private CreateProjectController createProjectController;
+  private TaskListController taskListController;
   private CardLayout cards;
 
   public MainController(MainPanel mainPanel) {
     this.mainPanel = mainPanel;
     cards = mainPanel.getCardLayout();
     loginController = new LoginController(this, mainPanel.getLoginPanel(), mainPanel.getProjectListPanel());
-    projectListController = new ProjectListController(this, mainPanel.getLoginPanel(), mainPanel.getProjectListPanel());
+    projectListController = new ProjectListController(this, mainPanel.getLoginPanel(), mainPanel.getProjectListPanel(), mainPanel.getTaskListPanel());
     createProjectController = new CreateProjectController(this, mainPanel.getProjectListPanel(), mainPanel.getCreateProjectPanel());
+    taskListController = new TaskListController(this, mainPanel.getProjectListPanel(), mainPanel.getTaskListPanel());
     currentUser = null;
   }
 
@@ -42,6 +44,11 @@ public class MainController implements ActionListener {
   public CreateProjectController getCreateProjectController() {
     return createProjectController;
   }
+
+  public TaskListController getTaskListController() {
+    return taskListController;
+  }
+
 
   public MainPanel getMainPanel() {
     return mainPanel;

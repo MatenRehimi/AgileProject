@@ -5,7 +5,6 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
-
 public class LoginController implements ActionListener {
 
   private MainController mainController;

@@ -8,6 +8,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 
 public class ProjectListPanel extends JPanel {
 
-  private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 20);
+  private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 15);
   private MainPanel mainPanel;
   private DefaultListModel<Object> model;
   private JList<Object> list;
@@ -35,6 +36,7 @@ public class ProjectListPanel extends JPanel {
     this.mainPanel = mainPanel;
     model = new DefaultListModel<Object>();
     list = new JList<>(model);
+    list.setName("projectList");
     tabbedPane = new JTabbedPane();
     tabbedPane.addTab("Project List", list);
     renderer = (DefaultListCellRenderer) list.getCellRenderer();
@@ -75,6 +77,7 @@ public class ProjectListPanel extends JPanel {
     createProjectButton.addActionListener(actionListener);
     viewProjectButton.addActionListener(actionListener);
     list.addMouseListener(((MouseAdapter)actionListener));
+    list.addListSelectionListener((ListSelectionListener)actionListener);
   }
 
   public void clearModel() {
@@ -83,6 +86,14 @@ public class ProjectListPanel extends JPanel {
 
   public int getProjectSize() {
     return projectSize;
+  }
+
+  public int getSelectedListIndex() {
+    return list.getSelectedIndex();
+  }
+
+  public DefaultListModel getModel() {
+    return model;
   }
 
 }

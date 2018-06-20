@@ -16,7 +16,7 @@ import javax.swing.BorderFactory;
 
 public class LoginPanel extends JPanel {
 
-  private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 20);
+  private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 15);
 
   private JPanel centerPanel;
   private JButton submitButton;
@@ -29,7 +29,7 @@ public class LoginPanel extends JPanel {
   private MainPanel mainPanel;
 
   public LoginPanel(MainPanel mainPanel) {
-    
+
     super(new GridBagLayout());
     this.mainPanel = mainPanel;
     add(centerPanel());

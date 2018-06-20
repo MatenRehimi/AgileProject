@@ -149,5 +149,67 @@ public class DatabaseAPI {
 		}
 	}
 
+	public static ArrayList<Integer> getPrerequisiteTasks(int taskID) throws SQLException {
+		ArrayList<Integer> tasksToComplete = new ArrayList<Integer>();
+		String sql = "SELECT * FROM PREREQUISITETASKS WHERE taskID = ?";
+
+		try (
+			Connection conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		) {
+
+			stmt.setInt(1, taskID);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				tasksToComplete.add(rs.getInt("taskToComplete"));
+			}
+
+			return tasksToComplete;
+		}
+	}
+
+	public static ArrayList<Task> getTasks(int projectID) throws SQLException {
+
+		ArrayList<Task> tasks = new ArrayList<Task>();
+		String sql = "SELECT * FROM TASK WHERE projectID = ?";
+
+		try (
+			Connection conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		) {
+
+			stmt.setInt(1, projectID);
+			ResultSet rs = stmt.executeQuery();
+			//printQuery(rs);
+
+			while (rs.next()) {
+				Task task = new Task(rs.getInt("taskID"), rs.getInt("projectID"), rs.getString("name"), rs.getInt("effortEstimate"),
+				getPrerequisiteTasks(rs.getInt("taskID")));
+				tasks.add(task);
+			}
+
+			return tasks;
+		}
+	}
+
+	public static void removeTask(Task task) throws SQLException {
+
+		String sql = "DELETE FROM TASK WHERE taskID = ?";
+		String sql2 = "DELETE FROM PREREQUISITETASKS WHERE taskToComplete = ?";
+
+		try (
+			Connection conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+		) {
+			stmt.setInt(1,task.getID());
+			stmt2.setInt(1,task.getID());
+			stmt2.executeUpdate();
+			stmt.executeUpdate();
+
+		}
+	}
+
 
 }
