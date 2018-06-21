@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 
 public class CreateProjectPanel extends JPanel {
 
-  private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 20);
+  private static final Font MONACO_FONT = new Font("Monaco", Font.PLAIN, 15);
   private MainPanel mainPanel;
   private JPanel centerPanel;
   private JLabel nameLabel;
@@ -21,25 +21,33 @@ public class CreateProjectPanel extends JPanel {
   private JButton createProject;
   private JButton backButton;
 
-
   public CreateProjectPanel(MainPanel mainPanel) {
+
     super(new GridBagLayout());
     this.mainPanel = mainPanel;
-    add(centerPanel());
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridwidth = 2;
+    add(centerPanel(),gbc);
 
     createProject = new JButton("Create Project");
     createProject.setName("createProjectButton");
     backButton = new JButton("Back");
     backButton.setName("backButton");
 
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.gridx = 0;
-    gbc.gridy = 1;
-    add(createProject,gbc);
     GridBagConstraints gbc2 = new GridBagConstraints();
     gbc2.gridx = 0;
-    gbc2.gridy = 2;
+    gbc2.gridy = 1;
+    gbc2.gridwidth=1;
     add(backButton,gbc2);
+
+    GridBagConstraints gbc3 = new GridBagConstraints();
+    gbc3.gridx = 1;
+    gbc3.gridy = 1;
+    gbc3.gridwidth = 1;
+    add(createProject,gbc3);
 
   }
 

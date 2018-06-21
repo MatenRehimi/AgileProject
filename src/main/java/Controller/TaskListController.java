@@ -2,12 +2,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -42,7 +42,7 @@ public class TaskListController implements ActionListener, ListSelectionListener
       taskListPanel.clearModel();
     }
     if (name.equals("createTaskButton")) {
-
+      mainController.getCardLayout().show(mainController.getMainPanel(),"createTaskPanel");
     }
     if (name.equals("deleteTaskButton")) {
       if (currentTask != null) {
