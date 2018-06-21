@@ -25,6 +25,7 @@ public class ProjectListPanel extends JPanel {
   private JButton logOutButton;
   private JButton createProjectButton;
   private JButton viewProjectButton;
+  private JButton deleteProjectButton;
   private JPanel bottomPanel;
   private int projectSize;
   private DefaultListCellRenderer renderer;
@@ -61,6 +62,9 @@ public class ProjectListPanel extends JPanel {
     viewProjectButton = new JButton("View Project");
     viewProjectButton.setName("viewProjectButton");
     bottomPanel.add(viewProjectButton);
+    deleteProjectButton = new JButton("Delete Project");
+    deleteProjectButton.setName("deleteProjectButton");
+    bottomPanel.add(deleteProjectButton);
     return bottomPanel;
   }
 
@@ -76,6 +80,7 @@ public class ProjectListPanel extends JPanel {
     logOutButton.addActionListener(actionListener);
     createProjectButton.addActionListener(actionListener);
     viewProjectButton.addActionListener(actionListener);
+    deleteProjectButton.addActionListener(actionListener);
     list.addMouseListener(((MouseAdapter)actionListener));
     list.addListSelectionListener((ListSelectionListener)actionListener);
   }
@@ -94,6 +99,18 @@ public class ProjectListPanel extends JPanel {
 
   public DefaultListModel getModel() {
     return model;
+  }
+
+  public void removeIndexFromDLM(int index) {
+    model.removeElementAt(index);
+  }
+
+  public Object getElementAtIndex(int index) {
+    if (index > -1) {
+      return model.getElementAt(index);
+    }else{
+      return null;
+    }
   }
 
 }

@@ -27,10 +27,12 @@ public class ProjectListController extends MouseAdapter implements ActionListene
   }
 
   public void valueChanged(ListSelectionEvent e) {
-    System.out.println("pop");
-    currentProject = (Project)projectListPanel.getModel().getElementAt(projectListPanel.getSelectedListIndex());
-
+    //repeats double call with single click
+    if (!e.getValueIsAdjusting()) {
+      System.out.println("pop");
+      currentProject = (Project)projectListPanel.getElementAtIndex(projectListPanel.getSelectedListIndex());
     }
+  }
 
   public void actionPerformed(ActionEvent e)  {
 
@@ -38,16 +40,39 @@ public class ProjectListController extends MouseAdapter implements ActionListene
     if (name.equals("projectList")) {
       System.out.println("pop");
       int index = projectListPanel.getSelectedListIndex();
-      Object project = projectListPanel.getModel().getElementAt(index);
-      currentProject = (Project)project;
+      if (index > -1) {
+        Object project = projectListPanel.getModel().getElementAt(index);
+        currentProject = (Project)project;
+      }
     }
     if (name.equals("logOutButton")) {
+      currentProject = null;
       mainController.getCardLayout().show(mainController.getMainPanel(),"loginPanel");
       projectListPanel.clearModel();
     }
     if (name.equals("createProjectButton")) {
       mainController.getCardLayout().show(mainController.getMainPanel(),"createProjectPanel");
       projectListPanel.clearModel();
+    }
+    if (name.equals("deleteProjectButton")) {
+      if (currentProject != null) {
+        try {
+          int index = projectListPanel.getSelectedListIndex();
+          if (index > -1) {
+            Object project = projectListPanel.getElementAtIndex(index);
+            DatabaseAPI.removeProject(((Project)project));
+            projectListPanel.removeIndexFromDLM(index);
+          }else{
+            JOptionPane.showMessageDialog(projectListPanel, "Must select a project to delete!", "Failure", JOptionPane.ERROR_MESSAGE);
+          }
+
+        }catch(SQLException err) {
+          err.printStackTrace();
+          JOptionPane.showMessageDialog(projectListPanel, "Must delete Tasks first!", "Failure", JOptionPane.ERROR_MESSAGE);
+        }
+      }else{
+        JOptionPane.showMessageDialog(loginPanel, "Pick a project to delete!", "Failure", JOptionPane.ERROR_MESSAGE);
+      }
     }
     if (name.equals("viewProjectButton")) {
       if (currentProject != null) {
