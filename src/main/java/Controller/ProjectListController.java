@@ -10,7 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import java.sql.SQLException;
 
-public class ProjectListController extends MouseAdapter implements ActionListener, ListSelectionListener  {
+public class ProjectListController implements ActionListener, ListSelectionListener  {
 
   private MainController mainController;
   private LoginPanel loginPanel;
@@ -71,7 +71,7 @@ public class ProjectListController extends MouseAdapter implements ActionListene
           JOptionPane.showMessageDialog(projectListPanel, "Must delete Tasks first!", "Failure", JOptionPane.ERROR_MESSAGE);
         }
       }else{
-        JOptionPane.showMessageDialog(loginPanel, "Pick a project to delete!", "Failure", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(projectListPanel, "Pick a project to delete!", "Failure", JOptionPane.ERROR_MESSAGE);
       }
     }
     if (name.equals("viewProjectButton")) {
@@ -86,36 +86,6 @@ public class ProjectListController extends MouseAdapter implements ActionListene
       }else{
         JOptionPane.showMessageDialog(loginPanel, "Pick a project to view!", "Failure", JOptionPane.ERROR_MESSAGE);
       }
-
     }
-
   }
-
-    public void mouseClicked(MouseEvent e) {
-
-      JList projectList = (JList) e.getSource();
-      int index = projectList.locationToIndex(e.getPoint());
-
-       if (e.getClickCount() == 2) {
-          if (index >= 0) {
-            Object project = projectList.getModel().getElementAt(index);
-            try {
-            	DatabaseAPI.removeProject(((Project)project));
-              ((DefaultListModel) projectList.getModel()).removeElementAt(index);
-            }catch(SQLException err) {
-              err.printStackTrace();
-              JOptionPane.showMessageDialog(projectListPanel, "Must delete Tasks first!", "Failure", JOptionPane.ERROR_MESSAGE);
-            }
-          }
-
-       }
-
-       // if (e.getClickCount() == 1) {
-       //    if (index >= 0) {
-       //      Object project = projectList.getModel().getElementAt(index);
-       //      currentProject = (Project)project;
-       //    }
-       // }
-    }
-
 }

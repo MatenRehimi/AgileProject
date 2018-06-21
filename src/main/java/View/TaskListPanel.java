@@ -2,7 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -73,7 +73,7 @@ public class TaskListPanel extends JPanel {
     projectListButton.addActionListener(actionListener);
     createTaskButton.addActionListener(actionListener);
     deleteTaskButton.addActionListener(actionListener);
-    list.addMouseListener(((MouseAdapter)actionListener));
+    list.addListSelectionListener((ListSelectionListener)actionListener);
   }
 
   public ArrayList<Object> getTasks() {
@@ -87,5 +87,22 @@ public class TaskListPanel extends JPanel {
   public int getModelSize() {
     return model.getSize();
   }
+
+  public void removeIndexFromDLM(int index) {
+    model.removeElementAt(index);
+  }
+
+  public Object getElementAtIndex(int index) {
+    if (index > -1) {
+      return model.getElementAt(index);
+    }else{
+      return null;
+    }
+  }
+
+  public int getSelectedListIndex() {
+    return list.getSelectedIndex();
+  }
+
 
 }

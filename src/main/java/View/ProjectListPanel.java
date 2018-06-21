@@ -2,7 +2,6 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
@@ -81,7 +80,6 @@ public class ProjectListPanel extends JPanel {
     createProjectButton.addActionListener(actionListener);
     viewProjectButton.addActionListener(actionListener);
     deleteProjectButton.addActionListener(actionListener);
-    list.addMouseListener(((MouseAdapter)actionListener));
     list.addListSelectionListener((ListSelectionListener)actionListener);
   }
 
