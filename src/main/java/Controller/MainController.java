@@ -21,7 +21,7 @@ public class MainController implements ActionListener {
     loginController = new LoginController(this, mainPanel.getLoginPanel(), mainPanel.getProjectListPanel());
     projectListController = new ProjectListController(this, mainPanel.getLoginPanel(), mainPanel.getProjectListPanel(), mainPanel.getTaskListPanel());
     createProjectController = new CreateProjectController(this, mainPanel.getProjectListPanel(), mainPanel.getCreateProjectPanel());
-    taskListController = new TaskListController(this, mainPanel.getProjectListPanel(), mainPanel.getTaskListPanel());
+    taskListController = new TaskListController(this, mainPanel.getProjectListPanel(), mainPanel.getTaskListPanel(), mainPanel.getCreateTaskPanel());
     createTaskController = new CreateTaskController(this, mainPanel.getTaskListPanel(), mainPanel.getCreateTaskPanel());
     currentUser = null;
   }
@@ -69,7 +69,11 @@ public class MainController implements ActionListener {
   }
 
   public int getCurrentUserID() {
-    return currentUser.getID();
+    if (currentUser != null) {
+      return currentUser.getID();
+    }else{
+      return -1;
+    }
   }
 
 

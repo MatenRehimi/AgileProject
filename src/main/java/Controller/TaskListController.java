@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,13 +17,15 @@ public class TaskListController implements ActionListener, ListSelectionListener
   private MainController mainController;
   private ProjectListPanel projectListPanel;
   private TaskListPanel taskListPanel;
+  private CreateTaskPanel createTaskPanel;
   private Task currentTask;
 
   public TaskListController(MainController mainController, ProjectListPanel projectListPanel,
-  TaskListPanel taskListPanel) {
+  TaskListPanel taskListPanel, CreateTaskPanel createTaskPanel) {
     this.mainController = mainController;
     this.projectListPanel = projectListPanel;
     this.taskListPanel = taskListPanel;
+    this.createTaskPanel = createTaskPanel;
     currentTask = null;
   }
 
@@ -43,7 +46,19 @@ public class TaskListController implements ActionListener, ListSelectionListener
     }
     if (name.equals("createTaskButton")) {
       mainController.getCardLayout().show(mainController.getMainPanel(),"createTaskPanel");
+      try {
+        ArrayList<Task> tasks = DatabaseAPI.getTasks(mainController.getCurrentUserID());
+        JComboBox<Integer> taskListCB = createTaskPanel.getTaskListCB();
+        taskListCB.addItem(null);
+        for(int i=0; i<tasks.size();i++) {
+          taskListCB.addItem((Integer)tasks.get(i).getID());
+        }
+
+      }catch(SQLException err) {
+        err.printStackTrace();
+      }
     }
+
     if (name.equals("deleteTaskButton")) {
       if (currentTask != null) {
         int index = taskListPanel.getSelectedListIndex();

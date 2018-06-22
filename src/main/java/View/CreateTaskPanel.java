@@ -4,12 +4,15 @@ import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import java.awt.GridBagLayout;
 import java.awt.Component;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 public class CreateTaskPanel extends JPanel {
 
@@ -22,9 +25,13 @@ public class CreateTaskPanel extends JPanel {
   private JTextField nameTF;
   private JLabel effortLabel;
   private JTextField effortTF;
+  private JLabel taskListLabel;
+  private JComboBox<Integer> taskListCB;
   private JLabel prerequisiteTasksLabel;
+  private JComboBox<Object> prerequisiteCB;
 
   public CreateTaskPanel(MainPanel mainPanel) {
+
     super(new GridBagLayout());
     this.mainPanel = mainPanel;
 
@@ -69,10 +76,22 @@ public class CreateTaskPanel extends JPanel {
     centerPanel.add(effortLabel);
     centerPanel.add(effortTF);
 
+    taskListLabel = new JLabel("Task List");
+    taskListLabel.setFont(MONACO_FONT);
+    taskListLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    centerPanel.add(taskListLabel);
+
+    taskListCB = new JComboBox<Integer>();
+    taskListCB.setName("taskListCB");
+    centerPanel.add(taskListCB);
+
     prerequisiteTasksLabel = new JLabel("Prerequisite Tasks");
     prerequisiteTasksLabel.setFont(MONACO_FONT);
     prerequisiteTasksLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     centerPanel.add(prerequisiteTasksLabel);
+
+    prerequisiteCB = new JComboBox<Object>();
+    centerPanel.add(prerequisiteCB);
 
     return centerPanel;
   }
@@ -80,5 +99,14 @@ public class CreateTaskPanel extends JPanel {
   public void addActionListeners(ActionListener actionListener) {
     submitTaskButton.addActionListener(actionListener);
     taskListButton.addActionListener(actionListener);
+    taskListCB.addItemListener((ItemListener)actionListener);
+  }
+
+  public JComboBox<Integer> getTaskListCB() {
+    return taskListCB;
+  }
+
+  public void clearTaskListCB() {
+    taskListCB.removeAllItems();
   }
 }
