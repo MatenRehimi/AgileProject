@@ -27,9 +27,8 @@ public class ProjectListController implements ActionListener, ListSelectionListe
   }
 
   public void valueChanged(ListSelectionEvent e) {
-    //repeats double call with single click
+
     if (!e.getValueIsAdjusting()) {
-      System.out.println("pop");
       currentProject = (Project)projectListPanel.getElementAtIndex(projectListPanel.getSelectedListIndex());
     }
   }
@@ -38,7 +37,6 @@ public class ProjectListController implements ActionListener, ListSelectionListe
 
     String name = ((JButton) e.getSource()).getName();
     if (name.equals("projectList")) {
-      System.out.println("pop");
       int index = projectListPanel.getSelectedListIndex();
       if (index > -1) {
         Object project = projectListPanel.getModel().getElementAt(index);
@@ -87,5 +85,9 @@ public class ProjectListController implements ActionListener, ListSelectionListe
         JOptionPane.showMessageDialog(loginPanel, "Pick a project to view!", "Failure", JOptionPane.ERROR_MESSAGE);
       }
     }
+  }
+
+  public int getCurrentProjectID() {
+    return currentProject.getID();
   }
 }

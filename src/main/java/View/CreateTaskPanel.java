@@ -5,6 +5,8 @@ import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import java.awt.GridBagLayout;
 import java.awt.Component;
 import java.awt.Color;
@@ -27,8 +29,10 @@ public class CreateTaskPanel extends JPanel {
   private JTextField effortTF;
   private JLabel taskListLabel;
   private JComboBox<Integer> taskListCB;
+  private DefaultComboBoxModel<Integer> taskListModel;
   private JLabel prerequisiteTasksLabel;
-  private JComboBox<Object> prerequisiteCB;
+  private JComboBox<Integer> prerequisiteCB;
+  private DefaultComboBoxModel<Integer> prerequisiteModel;
 
   public CreateTaskPanel(MainPanel mainPanel) {
 
@@ -81,7 +85,8 @@ public class CreateTaskPanel extends JPanel {
     taskListLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     centerPanel.add(taskListLabel);
 
-    taskListCB = new JComboBox<Integer>();
+    taskListModel = new DefaultComboBoxModel<Integer>();
+    taskListCB = new JComboBox<Integer>(taskListModel);
     taskListCB.setName("taskListCB");
     centerPanel.add(taskListCB);
 
@@ -90,7 +95,10 @@ public class CreateTaskPanel extends JPanel {
     prerequisiteTasksLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
     centerPanel.add(prerequisiteTasksLabel);
 
-    prerequisiteCB = new JComboBox<Object>();
+    prerequisiteModel = new DefaultComboBoxModel<Integer>();
+    prerequisiteCB = new JComboBox<Integer>(prerequisiteModel);
+    prerequisiteCB.setName("prerequisiteCB");
+    prerequisiteCB.addItem(null);
     centerPanel.add(prerequisiteCB);
 
     return centerPanel;
@@ -100,13 +108,58 @@ public class CreateTaskPanel extends JPanel {
     submitTaskButton.addActionListener(actionListener);
     taskListButton.addActionListener(actionListener);
     taskListCB.addItemListener((ItemListener)actionListener);
+    prerequisiteCB.addItemListener((ItemListener)actionListener);
   }
 
   public JComboBox<Integer> getTaskListCB() {
     return taskListCB;
   }
 
+  public JComboBox<Integer> getPrerequisiteCB() {
+    return prerequisiteCB;
+  }
+
+  public DefaultComboBoxModel<Integer> getTaskListModel() {
+    return taskListModel;
+  }
+
   public void clearTaskListCB() {
-    taskListCB.removeAllItems();
+    taskListModel.removeAllElements();
+  }
+
+  public DefaultComboBoxModel<Integer> getPrerequisiteModel() {
+    return prerequisiteModel;
+  }
+
+  public void clearPrerequisiteListCB() {
+    prerequisiteModel.removeAllElements();
+    prerequisiteCB.addItem(null);
+  }
+
+  public String getNameText() {
+    return nameTF.getText();
+  }
+
+  public void clearNameText() {
+    nameTF.setText("");
+  }
+
+  public String getEffortText() {
+    return effortTF.getText();
+  }
+
+  public void clearEffortText() {
+    effortTF.setText("");
+  }
+
+  public ArrayList<Integer> getPrerequisiteTasks() {
+
+    ArrayList<Integer> prerequisiteTasks = new ArrayList<Integer>();
+    int size = prerequisiteCB.getItemCount();
+    for (int i = 1; i < size; i++) {
+      Object item = prerequisiteCB.getItemAt(i);
+      prerequisiteTasks.add((int)item);
+    }
+    return prerequisiteTasks;
   }
 }

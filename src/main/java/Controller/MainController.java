@@ -14,6 +14,7 @@ public class MainController implements ActionListener {
   private TaskListController taskListController;
   private CreateTaskController createTaskController;
   private CardLayout cards;
+  private Project currentProject;
 
   public MainController(MainPanel mainPanel) {
     this.mainPanel = mainPanel;
@@ -24,6 +25,7 @@ public class MainController implements ActionListener {
     taskListController = new TaskListController(this, mainPanel.getProjectListPanel(), mainPanel.getTaskListPanel(), mainPanel.getCreateTaskPanel());
     createTaskController = new CreateTaskController(this, mainPanel.getTaskListPanel(), mainPanel.getCreateTaskPanel());
     currentUser = null;
+    currentProject = null;
   }
 
   public void actionPerformed(ActionEvent e) {
@@ -55,7 +57,6 @@ public class MainController implements ActionListener {
     return createTaskController;
   }
 
-
   public MainPanel getMainPanel() {
     return mainPanel;
   }
@@ -74,6 +75,10 @@ public class MainController implements ActionListener {
     }else{
       return -1;
     }
+  }
+
+  public int getCurrentProjectID() {
+    return projectListController.getCurrentProjectID();
   }
 
 

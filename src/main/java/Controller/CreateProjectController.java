@@ -23,14 +23,15 @@ public class CreateProjectController implements ActionListener {
     if (name.equals("createProjectButton")) {
       String projectName = createProjectPanel.getNameText();
       if (projectName.length() > 0) {
-        Project project = new Project(projectListPanel.getProjectSize()+1, mainController.getCurrentUserID(),
-          createProjectPanel.getNameText());
           try {
+              Project project = new Project(DatabaseAPI.getHighestProjectID()+1, mainController.getCurrentUserID(),
+              createProjectPanel.getNameText());
               DatabaseAPI.addProject(project);
               projectListPanel.addProjects(DatabaseAPI.getProjects());
           }catch(SQLException err) {
             err.printStackTrace();
           }
+        createProjectPanel.clearNameText();
         mainController.getCardLayout().show(mainController.getMainPanel(),"projectListPanel");
       }else{
         JOptionPane.showMessageDialog(createProjectPanel, "Name can not be empty!", "Failure", JOptionPane.ERROR_MESSAGE);
@@ -38,6 +39,7 @@ public class CreateProjectController implements ActionListener {
     }
 
     if (name.equals("backButton")) {
+      createProjectPanel.clearNameText();
       mainController.getCardLayout().show(mainController.getMainPanel(), "projectListPanel");
       try {
         projectListPanel.addProjects(DatabaseAPI.getProjects());

@@ -211,5 +211,64 @@ public class DatabaseAPI {
 		}
 	}
 
+	public static int getHighestTaskID() throws SQLException {
 
+		String sql = "SELECT max(taskID) FROM TASK";
+
+		try (
+			Connection conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		) {
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			if (rs.getObject(1) == null) {
+				return 0;
+			}else{
+				return (int)rs.getObject(1);
+			}
+		}
+	}
+
+	public static void addTask(Task task) throws SQLException {
+
+		String sql = "INSERT INTO TASK (taskID, projectID, name, effortEstimate) VALUES (?,?,?,?)";
+		String sql2 = "INSERT INTO PREREQUISITETASKS (taskID, taskToComplete) VALUES (?,?)";
+
+		try (
+			Connection conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement stmt2 = conn.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
+		) {
+			stmt.setInt(1,task.getID());
+			stmt.setInt(2,task.getProjectID());
+			stmt.setString(3,task.getName());
+			stmt.setInt(4,task.getEffortEstimate());
+			stmt.executeUpdate();
+			for (int i=0; i < task.getPrerequisiteTaskSize(); i++) {
+				stmt2.setInt(1,task.getID());
+				stmt2.setInt(2,task.getPrerequisiteTasks().get(i));
+				stmt2.executeUpdate();
+			}
+
+		}
+
+	}
+
+	public static int getHighestProjectID() throws SQLException {
+
+		String sql = "SELECT max(projectID) FROM PROJECT";
+
+		try (
+			Connection conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		) {
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			if (rs.getObject(1) == null) {
+				return 0;
+			}else{
+				return (int)rs.getObject(1);
+			}
+		}
+	}
 }

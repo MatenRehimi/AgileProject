@@ -79,4 +79,8 @@ public class CreateProjectPanel extends JPanel {
     return nameTF.getText();
   }
 
+  public void clearNameText() {
+    nameTF.setText("");
+  }
+
 }

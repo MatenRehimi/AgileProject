@@ -34,8 +34,6 @@ public class TaskListPanel extends JPanel {
     list = new JList<>(model);
     tabbedPane = new JTabbedPane();
     tabbedPane.addTab("Task List", list);
-    // renderer = (DefaultListCellRenderer) list.getCellRenderer();
-    // renderer.setHorizontalAlignment(SwingConstants.CENTER);
     list.setFixedCellHeight(50);
     list.setFont(MONACO_FONT);
     add(tabbedPane, BorderLayout.NORTH);

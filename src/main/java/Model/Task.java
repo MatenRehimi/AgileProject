@@ -36,6 +36,10 @@ public class Task {
     return prerequisiteTasks;
   }
 
+  public int getPrerequisiteTaskSize() {
+    return prerequisiteTasks.size();
+  }
+
   public void removePrerequisiteTask(int ID) {
     for (int i = 0; i < prerequisiteTasks.size(); i++) {
       if (prerequisiteTasks.get(i) == ID) {
@@ -46,7 +50,7 @@ public class Task {
 
   public String toString() {
     String preRequisiteTasks = "Empty";
-    if (prerequisiteTasks.size() == 1) {
+    if (prerequisiteTasks.size() >= 1) {
       preRequisiteTasks = Integer.toString(prerequisiteTasks.get(0));
       for (int i = 1; i < prerequisiteTasks.size(); i++) {
         preRequisiteTasks = preRequisiteTasks + ", " + Integer.toString(prerequisiteTasks.get(i));

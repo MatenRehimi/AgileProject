@@ -30,9 +30,7 @@ public class TaskListController implements ActionListener, ListSelectionListener
   }
 
   public void valueChanged(ListSelectionEvent e) {
-    //repeats double call with single click
     if (!e.getValueIsAdjusting()) {
-      System.out.println("pop");
       currentTask = (Task)taskListPanel.getElementAtIndex(taskListPanel.getSelectedListIndex());
     }
   }
@@ -40,16 +38,17 @@ public class TaskListController implements ActionListener, ListSelectionListener
   public void actionPerformed(ActionEvent e) {
     String name = ((JButton) e.getSource()).getName();
     if (name.equals("projectListButton")) {
-      currentTask = null;
+
       mainController.getCardLayout().show(mainController.getMainPanel(),"projectListPanel");
       taskListPanel.clearModel();
     }
     if (name.equals("createTaskButton")) {
       mainController.getCardLayout().show(mainController.getMainPanel(),"createTaskPanel");
       try {
-        ArrayList<Task> tasks = DatabaseAPI.getTasks(mainController.getCurrentUserID());
+        ArrayList<Task> tasks = DatabaseAPI.getTasks(mainController.getProjectListController().getCurrentProjectID());
         JComboBox<Integer> taskListCB = createTaskPanel.getTaskListCB();
         taskListCB.addItem(null);
+        createTaskPanel.clearPrerequisiteListCB();
         for(int i=0; i<tasks.size();i++) {
           taskListCB.addItem((Integer)tasks.get(i).getID());
         }
