@@ -1,14 +1,10 @@
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -46,11 +42,11 @@ public class TaskListController implements ActionListener, ListSelectionListener
       mainController.getCardLayout().show(mainController.getMainPanel(),"createTaskPanel");
       try {
         ArrayList<Task> tasks = DatabaseAPI.getTasks(mainController.getProjectListController().getCurrentProjectID());
-        JComboBox<Integer> taskListCB = createTaskPanel.getTaskListCB();
-        taskListCB.addItem(null);
+        DefaultComboBoxModel<Integer> taskListModel = createTaskPanel.getTaskListModel();
+        taskListModel.addElement(null);
         createTaskPanel.clearPrerequisiteListCB();
         for(int i=0; i<tasks.size();i++) {
-          taskListCB.addItem((Integer)tasks.get(i).getID());
+          taskListModel.addElement((Integer)tasks.get(i).getID());
         }
 
       }catch(SQLException err) {

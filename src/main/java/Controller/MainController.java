@@ -30,7 +30,6 @@ public class MainController implements ActionListener {
 
   public void actionPerformed(ActionEvent e) {
     cards.next(mainPanel);
-    //mainPanel.getCardLayout().show(mainPanel,"Banana");
   }
 
   public void setLoginController(LoginController loginController) {

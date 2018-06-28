@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import java.util.ArrayList;
 
 public class LoginController implements ActionListener {
 
