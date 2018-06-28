@@ -2,7 +2,6 @@ import java.awt.CardLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class MainPanel extends JPanel{

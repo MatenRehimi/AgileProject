@@ -4,14 +4,12 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import java.util.ArrayList;
 
 public class ProjectListPanel extends JPanel {
@@ -69,7 +67,6 @@ public class ProjectListPanel extends JPanel {
 
   public void addProjects(ArrayList<Project> projects) {
     for (int i=0; i < projects.size(); i++) {
-      //System.out.println(projects.get(i));
       model.addElement(projects.get(i));
     }
     projectSize = projects.size();

@@ -5,10 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JPanel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import java.util.ArrayList;
@@ -20,7 +17,6 @@ public class TaskListPanel extends JPanel {
   private DefaultListModel<Object> model;
   private JList<Object> list;
   private JTabbedPane tabbedPane;
-  private DefaultListCellRenderer renderer;
   private JPanel southPanel;
   private JButton projectListButton;
   private JButton createTaskButton;
