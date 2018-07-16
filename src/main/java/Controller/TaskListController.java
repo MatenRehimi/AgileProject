@@ -54,6 +54,10 @@ public class TaskListController implements ActionListener, ListSelectionListener
       }
     }
 
+    if (name.equals("scheduleTasksButton")) {
+      mainController.getCardLayout().show(mainController.getMainPanel(),"ganttChartPanel");
+    }
+
     if (name.equals("deleteTaskButton")) {
       if (currentTask != null) {
         int index = taskListPanel.getSelectedListIndex();

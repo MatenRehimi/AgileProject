@@ -1,15 +1,18 @@
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.BorderFactory;
 import javax.swing.SwingConstants;
 import javax.swing.JTabbedPane;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import java.util.ArrayList;
 
 public class ProjectListPanel extends JPanel {
@@ -19,6 +22,7 @@ public class ProjectListPanel extends JPanel {
   private DefaultListModel<Object> model;
   private JList<Object> list;
   private JTabbedPane tabbedPane;
+  private JScrollPane scrollPane;
   private JButton logOutButton;
   private JButton createProjectButton;
   private JButton viewProjectButton;
@@ -26,7 +30,6 @@ public class ProjectListPanel extends JPanel {
   private JPanel bottomPanel;
   private int projectSize;
   private DefaultListCellRenderer renderer;
-
 
   public ProjectListPanel(MainPanel mainPanel) {
 
@@ -36,12 +39,16 @@ public class ProjectListPanel extends JPanel {
     list = new JList<>(model);
     list.setName("projectList");
     tabbedPane = new JTabbedPane();
+    scrollPane = new JScrollPane(tabbedPane);
+    scrollPane.setPreferredSize(new Dimension(300,470));
+    scrollPane.setBorder(BorderFactory.createEmptyBorder());
     tabbedPane.addTab("Project List", list);
     renderer = (DefaultListCellRenderer) list.getCellRenderer();
     renderer.setHorizontalAlignment(SwingConstants.CENTER);
     list.setFixedCellHeight(50);
     list.setFont(MONACO_FONT);
-    add(tabbedPane, BorderLayout.NORTH);
+
+    add(scrollPane, BorderLayout.CENTER);
     add(createSouthPanel(), BorderLayout.SOUTH);
 
   }

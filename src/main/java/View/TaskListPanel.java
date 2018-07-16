@@ -8,6 +8,8 @@ import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
+import javax.swing.JScrollPane;
+import javax.swing.BorderFactory;
 import java.util.ArrayList;
 
 public class TaskListPanel extends JPanel {
@@ -17,10 +19,12 @@ public class TaskListPanel extends JPanel {
   private DefaultListModel<Object> model;
   private JList<Object> list;
   private JTabbedPane tabbedPane;
+  private JScrollPane scrollPane;
   private JPanel southPanel;
   private JButton projectListButton;
   private JButton createTaskButton;
   private JButton deleteTaskButton;
+  private JButton scheduleTasksButton;
   private int taskSize;
 
   public TaskListPanel(MainPanel mainPanel) {
@@ -29,10 +33,12 @@ public class TaskListPanel extends JPanel {
     model = new DefaultListModel<Object>();
     list = new JList<>(model);
     tabbedPane = new JTabbedPane();
+    scrollPane = new JScrollPane(tabbedPane);
+    scrollPane.setBorder(BorderFactory.createEmptyBorder());
     tabbedPane.addTab("Task List", list);
     list.setFixedCellHeight(50);
     list.setFont(MONACO_FONT);
-    add(tabbedPane, BorderLayout.NORTH);
+    add(scrollPane, BorderLayout.CENTER);
     add(southPanel(), BorderLayout.SOUTH);
   }
 
@@ -49,6 +55,9 @@ public class TaskListPanel extends JPanel {
     deleteTaskButton = new JButton("Delete Task");
     deleteTaskButton.setName("deleteTaskButton");
     southPanel.add(deleteTaskButton);
+    scheduleTasksButton = new JButton("Schedule Tasks");
+    scheduleTasksButton.setName("scheduleTasksButton");
+    southPanel.add(scheduleTasksButton);
     return southPanel;
   }
 
@@ -67,6 +76,7 @@ public class TaskListPanel extends JPanel {
     projectListButton.addActionListener(actionListener);
     createTaskButton.addActionListener(actionListener);
     deleteTaskButton.addActionListener(actionListener);
+    scheduleTasksButton.addActionListener(actionListener);
     list.addListSelectionListener((ListSelectionListener)actionListener);
   }
 
